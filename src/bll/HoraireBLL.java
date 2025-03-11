@@ -1,65 +1,46 @@
 package bll;
 
-import java.time.LocalTime;
-import java.util.Arrays;
+import java.time.LocalDate;
 import java.util.List;
+
 import bo.Horaire;
-import bo.Restaurant;
-import bo.TableRestaurant;
 import dal.HoraireDAO;
-import dal.TableRestaurantDAO;
 import exceptions.HoraireException;
 
 public class HoraireBLL {
-	private static final List<String> SEMAINE = Arrays.asList("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche");
-
+    private HoraireDAO dao = new HoraireDAO();
+	
 	public List<Horaire> select() {
-		HoraireDAO dao = new HoraireDAO();
 		return dao.select();
 	}
 	
-	
-	public List<Horaire> insert(List<Horaire> horaires,int idRestaurant) throws HoraireException{
-		//Horaire horaire=new Horaire(nom,ouverture,fermeture);
-		//checkHoraire(horaire);
-		HoraireDAO dao = new HoraireDAO();
-		dao.insert(horaires,idRestaurant);
-		return horaires;
-			
-	}
-	
-	
-	
-	public List<Horaire> selectFromRestaurant(Restaurant restaurant) {
+    public List<Horaire> selectByRestaurantId(int restaurantId) {
+    	return dao.selectByRestaurantId(restaurantId);
+    }
+
+	public Horaire insert(String jour, LocalDate ouverture, LocalDate fermeture, int idRestaurant) throws Exception {
+		Horaire horaire = new Horaire(jour, ouverture, fermeture, idRestaurant);
+		checkHoraire(horaire);
 		
 		HoraireDAO dao = new HoraireDAO();
-		return dao.selectFromRestaurant(restaurant);
-		 
+		dao.insert(horaire);
+		
+		return horaire;
 	}
 	
+	private void checkHoraire(Horaire horaire) throws HoraireException {
+		// les if sont à déterminer !
+		}
 	
-	
-	public Horaire update(String nom, LocalTime ouverture,LocalTime fermeture) throws HoraireException {
-		Horaire horaire=new Horaire(nom,ouverture,fermeture);
+	public void update(Horaire horaire) throws HoraireException {
 		checkHoraire(horaire);
+		
 		HoraireDAO dao = new HoraireDAO();
 		dao.update(horaire);
-		return horaire;
-			
 	}
 	
-	
-	public void delete(int id) {
+	public void delete (int id) {
 		HoraireDAO dao = new HoraireDAO();
 		dao.delete(id);
 	}
-	
-	
-	
-	public void checkHoraire(Horaire horaire) throws HoraireException{
-		if(!(SEMAINE.contains(horaire.getJour()))) {
-			throw new HoraireException("Entrer un jour de semaine valide");
-		}
-	}
-	
 }

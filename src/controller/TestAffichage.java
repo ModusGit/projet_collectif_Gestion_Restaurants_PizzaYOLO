@@ -9,10 +9,8 @@ import bll.CarteBLL;
 import bll.PlatBLL;
 import bll.RestaurantBLL;
 import bo.Carte;
-import bo.Categorie;
 import bo.Plat;
 import bo.Restaurant;
-import dal.TableRestaurantDAO;
 import exceptions.CarteException;
 import exceptions.PlatException;
 import exceptions.RestaurantException;
@@ -21,11 +19,10 @@ public class TestAffichage {
 	private static Scanner scan;
 	private static RestaurantBLL RestaurantBLL = new RestaurantBLL();
 	private static CarteBLL CarteBLL = new CarteBLL();
-	// private static HoraireBLL HoraireBLL = new HoraireBLL();
-	// private static TableRestaurantBLL TableRestaurantBLL = new TableRestaurantBLL();
+	//private static HoraireBLL HoraireBLL = new HoraireBLL();
+	//private static TableRestaurantBLL TableRestaurantBLL = new TableRestaurantBLL();
 	private static PlatBLL PlatBLL = new PlatBLL();
-	// private static CategorieBLL CategorieBLL = new CategorieBLL();
-
+	//private static CategorieBLL CategorieBLL = new CategorieBLL();
 	
 	public static void main(String[] args) throws Exception {
 		scan = new Scanner(System.in);
@@ -35,7 +32,6 @@ public class TestAffichage {
 			choix = afficherMenu();
 			
 			switch(choix) {
-
 			case 1: afficherMenuAjoutRestaurant(); break;
 			case 2: afficherRestaurant(RestaurantBLL.select()); break;
 			case 3: afficherMenuModificationRestaurant(); break;
@@ -53,33 +49,30 @@ public class TestAffichage {
 	private static void afficherMenuAjoutRestaurant() throws RestaurantException {
 		boolean insertionFailed;
 		do {
-			System.out.print("Veuillez saisir le nom du restaurant : ");
+			System.out.print("Veuillez saisir le nom du nouveau restaurant : ");
 			String nom = scan.nextLine();
 			
-			System.out.print("Veuillez saisir l'adresse du restaurant : ");
+			System.out.print("Veuillez saisir l'adresse du nouveau restaurant : ");
 			String adresse = scan.nextLine();
 			
-			System.out.print("Veuillez saisir l'url de l'image du restaurant : ");
+			System.out.print("Veuillez saisir l'url de l'image du nouveau restaurant : ");
 			String url_image = scan.nextLine();
 			
-			//Carte carte = new Carte(4,"un nom","une description");		
+			Carte carte = new Carte(4,"un nom","une description");		
 		
 			try {
-				RestaurantBLL.insert(nom, adresse, url_image);
+				RestaurantBLL.insert(nom, adresse, url_image, carte);
 				insertionFailed = false;
 			} catch (RestaurantException e) {
 				insertionFailed = true;
-				System.err.println("Echec de la création du restaurant :");
+				System.err.println("Echec de la création du nouveau restaurant :");
 				System.err.println(e.getMessage());
 			}
-			
-			
-			
 		} while (insertionFailed);
 	}
 	
 	private static void afficherMenuModificationRestaurant() throws RestaurantException {
-		System.out.println("Saisissez l'id du resto à modifier, ou 0 pour retourner au menu principal.");
+		System.out.println("Saisissez l'id du restaurant à modifier, ou tapez 0 pour retourner au menu principal.");
 		List<Restaurant> Restaurants = RestaurantBLL.select();
 		
 		if (Restaurants.isEmpty()) {
@@ -98,13 +91,13 @@ public class TestAffichage {
 					break;
 				} else {
 					if (choix != 0) {
-						System.err.println("L'identifiant sélectionné n'existe.");
+						System.err.println("L'identifiant sélectionné n'existe pas.");
 						choix = -1;
 					}
 				}
 				
 			} catch (InputMismatchException e) {
-				System.err.println("Choix invalide");
+				System.err.println("Choix invalide.");
 				choix = -1;
 			}
 			
@@ -128,14 +121,14 @@ public class TestAffichage {
 				updateFailed = false;
 			} catch (RestaurantException e) {
 				updateFailed = true;
-				System.err.println("Echec de la modification du resto :");
+				System.err.println("Echec de la modification du restaurant : ");
 				System.err.println(e.getMessage());
 			}
 		} while (updateFailed);
 	}
 		
 	private static void afficherMenuSuppressionRestaurant() {
-		System.out.println("Saisissez l'id du resto à supprimer, ou 0 pour retourner au menu principal.");
+		System.out.println("Saisissez l'id du restaurant à supprimer, ou tapez 0 pour retourner au menu principal.");
 		List<Restaurant> Restaurants = RestaurantBLL.select();
 		
 		if (Restaurants.isEmpty()) {
@@ -160,43 +153,44 @@ public class TestAffichage {
 				}
 				
 			} catch (InputMismatchException e) {
-				System.err.println("Choix invalide");
+				System.err.println("Choix invalide.");
 				choix = -1;
 			}
 		} while (choix != 0);
 	}
 
 	private static void afficherRestaurant(List<Restaurant> Restaurants) {
-	    int totalLength = 4 + 30 + 30 + 20 + 50 + 20 + 50;
+	    int totalLength = 4 + 20 + 50 + 30 + 70;
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
-	    System.out.format("%-4s %-30s %-30s %-20s %-80s %-20s %-50s\n", "id", "nom", "adresse", "cartes", "horaires", "tables", "url_image");
+	    System.out.format("%-4s %-20s %-50s %-30s %-70s\n", "id", "nom", "adresse", "cartes", "url_image");
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
 	    for (Restaurant current : Restaurants) {
 	        System.out.print(current);
+//	        List<Horaire> horaires = HoraireBLL.selectByRestaurantId(current.getId());
+//	        for (Horaire horaire : horaires) {
+//	            System.out.print(horaire);
+//	        }
 	    }
 	    
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
-	    
-	    
-	    
 	}
-
+	
 	private static int afficherMenu() {
 		int choix;
 		do {
 			System.out.println();
 			System.out.println("Quelle action souhaitez-vous réaliser ?");
 			System.out.println("\t1. Enregistrer un nouveau restaurant.");
-			System.out.println("\t2. Consulter le restaurant existant.");
+			System.out.println("\t2. Consulter la liste des restaurants existants.");
 			System.out.println("\t3. Modifier un restaurant.");
 			System.out.println("\t4. Supprimer un restaurant.");
 			System.out.println("\t5. Enregistrer une nouvelle carte.");
-			System.out.println("\t6. modifier une carte.");
-			System.out.println("\t7. Enregistrer un nouveau plat");
-			System.out.println("\t8. Modifier un plat");
-			System.out.println("\t. Quitter l'application");
+			System.out.println("\t6. Modifier une carte.");
+			System.out.println("\t7. Enregistrer un nouveau plat.");
+			System.out.println("\t8. Modifier un plat.");
+			System.out.println("\t. Quitter l'application.");
 			System.out.println("");
-			System.out.println("faites votre choix :");
+			System.out.println("Faites votre choix :");
 			try {
 				choix = scan.nextInt();
 			} catch (InputMismatchException e) {
@@ -210,7 +204,7 @@ public class TestAffichage {
 	}
 	
 	private static void afficherMenuModificationCarte() {
-		System.out.println("Saisissez l'id de la carte à modifier, ou 0 pour retourner au menu principal.");
+		System.out.println("Saisissez l'id de la carte à modifier, ou tapez 0 pour retourner au menu principal.");
 		List<Carte> Cartes = CarteBLL.select();
 		
 		if (Cartes.isEmpty()) {
@@ -229,7 +223,7 @@ public class TestAffichage {
 					break;
 				} else {
 					if (choix != 0) {
-						System.err.println("L'identifiant sélectionné n'existe pas en base.");
+						System.err.println("L'identifiant sélectionné n'existe pas.");
 						choix = -1;
 					}
 				}
@@ -257,7 +251,7 @@ public class TestAffichage {
 				updateFailed = false;
 			} catch (CarteException e) {
 				updateFailed = true;
-				System.err.println("Echec de la modification de la carte :");
+				System.err.println("Echec de la modification de la carte : ");
 				System.err.println(e.getMessage());
 			}
 		} while (updateFailed);
@@ -300,30 +294,25 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir le nom du plat : ");
 			String nom = scan.nextLine();
 			
-			System.out.println("Vaillez saisir le prix du plat : ");
+			System.out.println("Veuillez saisir le prix du plat : ");
 			double prix = scan.nextDouble();
-			scan.nextLine();
 			
 			System.out.print("Veuillez saisir la description du plat : ");
 			String description = scan.nextLine();
 			
-			System.out.print("Veuillez saisir la categorie (entree, plat, dessert, boisson) : ");
-			String choixCategorie = scan.nextLine();
-			Categorie categorie = new Categorie(3, choixCategorie);
-			
 			try {
-				PlatBLL.insert(nom, prix, description, categorie);
+				PlatBLL.insert(nom, prix, description);
 				insertionFailed = false;
 			} catch (PlatException e) {
 				insertionFailed = true;
-				System.err.println("Echec de la création du plat :");
+				System.err.println("Echec de la création du plat : ");
 				System.err.println(e.getMessage());
 			}
 		} while (insertionFailed);
 	}
 	
 	private static void afficherMenuModificationPlat() {
-		System.out.println("Saisissez l'id du plat à modifier, ou 0 pour retourner au menu principal.");
+		System.out.println("Saisissez l'id du plat à modifier, ou tapez 0 pour retourner au menu principal.");
 		List<Plat> plats = PlatBLL.select();
 		
 		if (plats.isEmpty()) {
@@ -342,13 +331,13 @@ public class TestAffichage {
 					break;
 				} else {
 					if (choix != 0) {
-						System.err.println("L'identifiant sélectionné n'existe pas en base.");
+						System.err.println("L'identifiant sélectionné n'existe pas.");
 						choix = -1;
 					}
 				}
 				
 			} catch (InputMismatchException e) {
-				System.err.println("Choix invalide");
+				System.err.println("Choix invalide.");
 				choix = -1;
 			}
 			
@@ -359,21 +348,21 @@ public class TestAffichage {
 			System.out.print("Veuillez saisir le nouveau nom du plat : ");
 			String nom = scan.nextLine();
 			
-			System.out.println("Vaillez saisir le prix du plat : ");
+			System.out.println("Veuillez saisir le nouveau prix du plat : ");
 			double prix = scan.nextDouble();
 						
 			System.out.print("Veuillez saisir la nouvelle description du plat : ");
 			String description = scan.nextLine();
 			
 		
-			Plat platTemp = new Plat(choix, nom, prix, description, null);
+			Plat platTemp = new Plat(choix, nom, prix, description);
 			
 			try {
 				PlatBLL.update(platTemp);
 				updateFailed = false;
 			} catch (PlatException e) {
 				updateFailed = true;
-				System.err.println("Echec de la modification du plat :");
+				System.err.println("Echec de la modification du plat : ");
 				System.err.println(e.getMessage());
 			}
 		} while (updateFailed);
@@ -388,7 +377,5 @@ public class TestAffichage {
 	        System.out.print(current);
 	    }
 	    System.out.println("+" + "-".repeat(totalLength) + "+");
-
 	}
-	
 }

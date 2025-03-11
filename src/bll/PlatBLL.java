@@ -2,7 +2,6 @@ package bll;
 
 import java.util.List;
 
-import bo.Categorie;
 import bo.Plat;
 import dal.PlatDAO;
 import exceptions.PlatException;
@@ -13,8 +12,8 @@ public class PlatBLL {
 		return dao.select();
 	}
 
-	public Plat insert(String nom, double prix, String description, Categorie categorie) throws Exception {
-		Plat plat = new Plat(nom, prix, description, categorie);
+	public Plat insert(String nom, double prix, String description) throws Exception {
+		Plat plat = new Plat(nom, prix, description);
 		checkPlats(plat);
 		
 		PlatDAO dao = new PlatDAO();

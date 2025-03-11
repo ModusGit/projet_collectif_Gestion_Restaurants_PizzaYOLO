@@ -46,7 +46,6 @@ public class Carte {
 		this.description = description;
 	}
 	
-
 	public List<Plat> getPlats() {
 		return plats;
 	}

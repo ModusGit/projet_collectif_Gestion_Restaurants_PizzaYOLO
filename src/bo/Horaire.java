@@ -1,28 +1,29 @@
 package bo;
 
-import java.time.LocalTime;
-
+import java.time.LocalDate;
 
 public class Horaire {
 	private int id;
 	private String jour;
-	private LocalTime ouverture;
-	private LocalTime fermeture;
+	private LocalDate ouverture;
+	private LocalDate fermeture;
+	private int idRestaurant;
 	 
-	
-	public Horaire(int id, String jour, LocalTime ouverture, LocalTime fermeture) {
+	public Horaire(int id, String jour, LocalDate ouverture, LocalDate fermeture, int idRestaurant) {
 		this.id = id;
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
+		this.idRestaurant = idRestaurant;
 	}
 
-	public Horaire(String jour, LocalTime ouverture, LocalTime fermeture) {
+	public Horaire(String jour, LocalDate ouverture, LocalDate fermeture, int idRestaurant) {
 		this.jour = jour;
 		this.ouverture = ouverture;
 		this.fermeture = fermeture;
+		this.idRestaurant = idRestaurant;
 	}
-	
+	 	
 	public Horaire() {}
 
 	public int getId() {
@@ -41,20 +42,28 @@ public class Horaire {
 		this.jour = jour;
 	}
 
-	public LocalTime getOuverture() {
+	public LocalDate getOuverture() {
 		return ouverture;
 	}
 
-	public void setOuverture(LocalTime ouverture) {
+	public void setOuverture(LocalDate ouverture) {
 		this.ouverture = ouverture;
 	}
 
-	public LocalTime getFermeture() {
+	public LocalDate getFermeture() {
 		return fermeture;
 	}
 
-	public void setFermeture(LocalTime fermeture) {
+	public void setFermeture(LocalDate fermeture) {
 		this.fermeture = fermeture;
+	}
+	
+	public int getIdRestaurant() {
+		return idRestaurant;
+	}
+
+	public void setIdRestaurant(int idRestaurant) {
+		this.idRestaurant = idRestaurant;
 	}
 
 	@Override

@@ -7,22 +7,20 @@ public class Plat {
 	private String description;
 	private Categorie categorie;
 	
-	public Plat(int id, String nom, double prix, String description, Categorie categorie) {
+	public Plat(int id, String nom, double prix, String description) {
 		this.id = id;
 		this.nom = nom;
 		this.prix = prix;
 		this.description = description;
 	}
 
-	public Plat(String nom, double prix, String description, Categorie categorie) {
+	public Plat(String nom, double prix, String description) {
 		this.nom = nom;
 		this.prix = prix;
 		this.description = description;
-		this.categorie = categorie;
 	}
 
 	public Plat() {}
-
 
 	public int getId() {
 		return id;
