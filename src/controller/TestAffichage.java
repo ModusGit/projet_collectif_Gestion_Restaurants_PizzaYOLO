@@ -42,7 +42,17 @@ public class TestAffichage {
 			case 8: afficherMenuModificationPlat(); break;
 			}
 		} while (choix != 9);
-		System.out.println("Bonne journée !");
+		System.out.println("Merci de votre visite et à bientôt !\r\n"
+				+ " ____                   \r\n"
+				+ "/    \\			\r\n"
+				+ "  u  u|      _______    \r\n"
+				+ "    \\ |  .-''#%&#&%#``-.   \r\n"
+				+ "   = /  ((%&#&#&%&VK&%&))  \r\n"
+				+ "    |    `-._#%&##&%_.-'   \r\n"
+				+ " /\\/\\`--.   `-.\"\".-'\r\n"
+				+ " |  |    \\   /`./          \r\n"
+				+ " |\\/|  \\  `-'  /\r\n"
+				+ " || |   \\     /            Pizza YOLO");
 		scan.close();
 	}
 	
@@ -180,17 +190,17 @@ public class TestAffichage {
 		do {
 			System.out.println();
 			System.out.println("Quelle action souhaitez-vous réaliser ?");
-			System.out.println("\t1. Enregistrer un nouveau restaurant.");
-			System.out.println("\t2. Consulter la liste des restaurants existants.");
-			System.out.println("\t3. Modifier un restaurant.");
-			System.out.println("\t4. Supprimer un restaurant.");
-			System.out.println("\t5. Enregistrer une nouvelle carte.");
-			System.out.println("\t6. Modifier une carte.");
-			System.out.println("\t7. Enregistrer un nouveau plat.");
-			System.out.println("\t8. Modifier un plat.");
-			System.out.println("\t. Quitter l'application.");
+			System.out.println("\t1. Enregistrer un nouveau restaurant");
+			System.out.println("\t2. Consulter la liste des restaurants existants");
+			System.out.println("\t3. Modifier un restaurant");
+			System.out.println("\t4. Supprimer un restaurant");
+			System.out.println("\t5. Enregistrer une nouvelle carte");
+			System.out.println("\t6. Modifier une carte");
+			System.out.println("\t7. Enregistrer un nouveau plat");
+			System.out.println("\t8. Modifier un plat");
+			System.out.println("\t9. Quitter l'application");
 			System.out.println("");
-			System.out.println("Faites votre choix :");
+			System.out.println("Faites votre choix : ");
 			try {
 				choix = scan.nextInt();
 			} catch (InputMismatchException e) {
