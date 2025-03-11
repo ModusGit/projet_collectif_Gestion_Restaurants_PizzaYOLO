@@ -15,7 +15,7 @@ import exceptions.CarteException;
 import exceptions.PlatException;
 import exceptions.RestaurantException;
 
-public class TestAffichage {
+public class MainController {
 	private static Scanner scan;
 	private static RestaurantBLL RestaurantBLL = new RestaurantBLL();
 	private static CarteBLL CarteBLL = new CarteBLL();
@@ -26,7 +26,14 @@ public class TestAffichage {
 	
 	public static void main(String[] args) throws Exception {
 		scan = new Scanner(System.in);
-		System.out.println("Bienvenue sur l'application de gestion de vos restaurants !");
+		System.out.println("        _....._\r\n"
+				+ "    _.:`.--|--.`:._\r\n"
+				+ "  .: .'\\o  | o /'. '.\r\n"
+				+ " // '.  \\ o|  /  o '.\\\r\n"
+				+ "//'._o'. \\ |o/ o_.-'o\\\\\r\n"
+				+ "|| o '-.'.\\|/.-' o   ||\r\n"
+				+ "||--o--o-->|"
+				+ "Bienvenue sur l'application de gestion de vos restaurants !");
 		int choix;
 		do {
 			choix = afficherMenu();
